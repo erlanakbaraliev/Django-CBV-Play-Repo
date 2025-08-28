@@ -1,3 +1,4 @@
-.venvTodo
+.venvToDo/
 ../__pycache__/*
 *.pyc
+apps/core/migrations/

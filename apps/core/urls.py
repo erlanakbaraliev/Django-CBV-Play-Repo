@@ -21,6 +21,9 @@ from apps.core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.HomePage.as_view() ),
-    path('child', views.ChildPage.as_view() )
+    path('', views.HomePage.as_view()),
+    path('child/', views.ChildPage.as_view()),
+    path('login/', views.LoginView, name='login'),
+    path('settings/', views.SettingsView.as_view()),
+    path('publishers/<str:pk>/', views.PublisherListView.as_view()),
 ]
