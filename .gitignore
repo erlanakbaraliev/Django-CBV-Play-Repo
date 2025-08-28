@@ -1,0 +1,3 @@
+.venvTodo
+../__pycache__/*
+*.pyc
