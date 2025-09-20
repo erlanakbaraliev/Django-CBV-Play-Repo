@@ -1,0 +1,54 @@
+How to create a locally running psql?
+  1. Install the lib that lets django talk to postgres
+     pip install psycopg
+
+  2. System install postgres server, client
+     sudo apt install postgresql postgresql-contrib
+     sudo apt install postgresql-client-common
+
+  3. Check if the postgres is running
+     sudo systemctl status postgresql
+     
+     If not running, you can start psql server by:
+     sudo systemctl start postgresql
+   
+  4. Enter postgres
+     sudo -u postgres psql
+  
+  5. Set a new password for default user 'postgres'
+     \password postgres
+     \q
+  
+  6. Connect to locally running postgres with the user called 'postgres', default user
+     psql -U postgres -h localhost
+
+  Result: Now you can run queries inside the psql
+
+
+  Now we want to create a Database that we can connect to and a user called 'erlan' who will own the database.
+  1. CREATE DATABASE mydatabase OWNER erlan;
+  2. GRANT ALL PRIVILEGES ON DATABASE mydatabase TO erlan;
+  3. Connect to the locally running database ('mydatabase') with the user 'erlan'
+     psql -U erlan -h localhost -d mydatabase
+  
+  Result: Now you have a database that can be used by ur django app and a user with specific privileges.
+
+
+  Note:
+   Select * from USER; won't work because this is not Oracle.
+   Instead use \du 
+   To exit: \q 
+
+Finally insert
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydatabase',
+        'USER': 'erlan',
+        'PASSWORD': 'erlan',
+        'HOST': 'locahost',
+        'PORT': '5432',
+    }
+}
+
+---------------------------------------------------------------------------------------------

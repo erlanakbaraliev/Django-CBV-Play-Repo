@@ -1,19 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView, ListView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
+from django.db.models import Count
+import datetime
 
-from .forms import LoginForm
-from .models import Publisher, Book
+from core.forms import LoginForm
+from core.models import Publisher, Book
 
-class HomePage(View):
-    greeting = "Hi from Parent"
-
-    def get(self, request):
-        return HttpResponse(self.greeting)
+class HomePage(TemplateView):
+    template_name = "core/main_page.html"
     
 
 class ChildPage(HomePage):
@@ -44,9 +43,7 @@ def LoginView(request):
 
 class PublisherListView(DetailView):
     model = Publisher
-    # context_object_name = "publishers"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["book_list"] = Book.objects.all()
         return context

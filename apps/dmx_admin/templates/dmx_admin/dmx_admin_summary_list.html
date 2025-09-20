@@ -1,0 +1,23 @@
+<meta charset="UTF-8">
+
+<title>Title</title>
+<table id="dmxTableErrorDetails" class="report-table">
+    <thead>
+    <tr>
+        {% for column in columns %}
+        <th>{{ column }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for record in object_list %}
+    <tr>
+        <td class="clickable-cell" data-url="{{dmx_admin_select_bond_details}}"
+            data-params="?{{parentParams}}&mds_uid={{record.mds_uid}}" data-target_table="#dmxTableBondDetails"
+            data-target_tab="a[href='#dmx-bond_details']">{{ record.error_descr }}
+        </td>
+        <td>{{ record.error_count }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
